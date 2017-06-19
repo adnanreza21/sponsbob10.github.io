@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UAS Pewe</title>
+	<link href="http://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+	<link href="ini.css" rel="stylesheet">
+<meta charset="UTF-8">
+<style>
+
+</style>
+<script>
+var pos = 0, test, test_status, question, choice, choices, chA, chB, chC,correct = 0;
+var questions = [
+	["Berapa Hasil dari 5 + 7?","12","13","14","A"], 		//soal 1
+	["Berapa Hasil dari 6 + 21?","25","26","27","C"], 		//soal 2
+	["Berapa Hasil dari 17 + 23?","40","41","42","A"],		//soal 3
+	["Berapa Hasil dari 10 - 6?","5","4","3","B"],			//soal 4
+	["Berapa Hasil dari 17 - 8?","7","8","9","C"],			//soal 5
+	["Berapa Hasil dari 33 - 17?","16","17","18","A"],		//soal 6
+	["Berapa Hasil dari 4 * 4?","16","18","20","A"],			//soal 7
+	["Berapa Hasil dari 15 * 6?","90","80","60","A"],		//soal 8
+	["Urutkan bilangan berikut dari yang terkecil!","5-4-3-2-1","1-2-5-3-4","1-2-3-4-5","C"],			//soal 9
+	["Berapa hasil dari 10+2+6-11+2","20","12","9","C"],			//soal 10
+];
+function _(x){
+	return document.getElementById(x);
+}
+function renderQuestion(){
+	test = _("test");
+	if (pos>= questions.length){
+		test.innerHTML= "<h2>Selamat Nilaimu "+correct+"0"+"</h2>";
+		_("test_status").innerHTML = "Selesai";
+		pos = 0;
+		correct = 0;
+		return false;
+	}
+	_("test_status").innerHTML = "Pertanyaan "+(pos+1)+" dari "+questions.length;
+	question = questions[pos][0];
+	chA = questions[pos][1];
+	chB = questions[pos][2];
+	chC = questions[pos][3];
+	test.innerHTML = "<h3>"+question+"</h3>";
+	test.innerHTML += "<input type = 'radio' name= 'choices' value='A'>"+chA+"<br>";
+	test.innerHTML += "<input type = 'radio' name= 'choices' value='B'>"+chB+"<br>";
+	test.innerHTML += "<input type = 'radio' name= 'choices' value='C'>"+chC+"<br><br>";
+	test.innerHTML += "<button onclick='checkAnswer()'>Soal Selanjutnya</button>";
+}
+function checkAnswer(){
+	choices = document.getElementsByName ("choices");
+	for(var i=0; i<choices.length; i++){
+		if(choices[i].checked){
+			choice = choices[i].value;
+		}
+	}
+	if(choice==questions[pos][4]){
+		correct++;
+	}
+	pos++;
+	renderQuestion();
+}
+window.addEventListener("load",renderQuestion, false);
+</script>
+</head>
+<body>
+	<div id="quizContainer" class="container">
+	<div class="title">Quiz Matematika</div>
+<h2 id="test_status"></h2>
+<div id="test">Hai</div>
+</body>
+</html>
